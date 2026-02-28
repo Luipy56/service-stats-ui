@@ -88,11 +88,21 @@
     if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
   }
 
+  function setSystemLastUpdate() {
+    const el = document.getElementById('system-last-update');
+    if (!el) return;
+    var d = new Date();
+    el.textContent = 'Updated ' + d.toLocaleTimeString();
+  }
+
   function loadSystem() {
     setContent('system-content', '<div class="loading-placeholder-wrap">' + loadingPlaceholderHtml() + '</div>');
+    var lastUpdateEl = document.getElementById('system-last-update');
+    if (lastUpdateEl) lastUpdateEl.textContent = '';
     fetchJson(API.system)
       .then(function (data) {
         setContent('system-content', renderSystem(data));
+        setSystemLastUpdate();
       })
       .catch(function (err) {
         setContent('system-content', '<p class="error-msg">Failed to load: ' + escapeHtml(err.message) + '</p>');
@@ -224,6 +234,8 @@
   }
 
   el('btn-refresh').addEventListener('click', loadServices);
+  var btnRefreshSystem = el('btn-refresh-system');
+  if (btnRefreshSystem) btnRefreshSystem.addEventListener('click', loadSystem);
 
   const searchEl = el('services-search');
   if (searchEl) {

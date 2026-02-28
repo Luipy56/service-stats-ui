@@ -4,9 +4,14 @@ header('Cache-Control: no-store');
 
 $script = '/usr/local/bin/stats-list-services.sh';
 if (!file_exists($script)) {
+    $script = dirname(__DIR__) . '/scripts/stats-list-services.sh';
+}
+if (!file_exists($script)) {
     echo json_encode(['error' => 'Script not found']);
     exit(1);
 }
+
+$useSudo = (strpos($script, '/usr/local/bin/') === 0);
 
 $cache_ttl = 5;
 $cache_dir = sys_get_temp_dir() . '/stats-services-cache';
@@ -19,7 +24,7 @@ if (is_dir($cache_dir) && is_readable($cache_file) && (time() - filemtime($cache
     exit;
 }
 
-$cmd = 'sudo ' . escapeshellarg($script) . ' 2>/dev/null';
+$cmd = ($useSudo ? 'sudo ' : '') . escapeshellarg($script) . ' 2>/dev/null';
 $h = popen($cmd, 'r');
 $lines = [];
 if ($h) {

@@ -23,11 +23,15 @@ if (!preg_match('/^[a-zA-Z0-9_.@-]+\.service$/', $unit)) {
 
 $script = '/usr/local/bin/stats-service-control.sh';
 if (!file_exists($script)) {
+    $script = dirname(__DIR__) . '/scripts/stats-service-control.sh';
+}
+if (!file_exists($script)) {
     echo json_encode(['ok' => false, 'error' => 'Script not found']);
     exit(1);
 }
 
-$cmd = 'sudo ' . escapeshellarg($script) . ' ' . escapeshellarg($action) . ' ' . escapeshellarg($unit);
+$useSudo = (strpos($script, '/usr/local/bin/') === 0);
+$cmd = ($useSudo ? 'sudo ' : '') . escapeshellarg($script) . ' ' . escapeshellarg($action) . ' ' . escapeshellarg($unit);
 $out = [];
 exec($cmd . ' 2>/dev/null', $out, $code);
 $raw = implode("\n", $out);

@@ -14,7 +14,13 @@
     </header>
 
     <section class="system-card" aria-label="System info">
-      <h2>System</h2>
+      <div class="system-card-header">
+        <h2>System</h2>
+        <div class="system-card-actions">
+          <button type="button" id="btn-refresh-system" class="btn btn-secondary btn-sm">Refresh</button>
+          <span id="system-last-update" class="meta system-last-update" aria-live="polite"></span>
+        </div>
+      </div>
       <div id="system-content">
         <div class="loading-placeholder-wrap">
           <div class="loading-placeholder" role="status" aria-live="polite">
@@ -23,7 +29,7 @@
           </div>
         </div>
       </div>
-      <p class="meta">Updates every 60s while this page is open.</p>
+      <p class="meta">Updates every 60s while this page is open; use Refresh to update now.</p>
     </section>
 
     <section class="services-section" aria-label="Services">

@@ -4,12 +4,17 @@ header('Cache-Control: no-store');
 
 $script = '/usr/local/bin/stats-system-info.sh';
 if (!file_exists($script)) {
+    $script = dirname(__DIR__) . '/scripts/stats-system-info.sh';
+}
+if (!file_exists($script)) {
     echo json_encode(['error' => 'Script not found']);
     exit(1);
 }
 
+$useSudo = (strpos($script, '/usr/local/bin/') === 0);
+$cmd = $useSudo ? 'sudo ' . escapeshellarg($script) : escapeshellarg($script);
 $out = [];
-exec('sudo ' . escapeshellarg($script) . ' 2>/dev/null', $out, $code);
+exec($cmd . ' 2>/dev/null', $out, $code);
 $raw = implode("\n", $out);
 
 if ($code !== 0 || $raw === '') {
