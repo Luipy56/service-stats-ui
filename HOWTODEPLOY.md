@@ -1,4 +1,4 @@
-# How to deploy Server Stats UI
+# How to deploy Service Stats UI
 
 This app shows system info and service list/control. It needs PHP, Apache (or nginx), and three helper scripts run via `sudo` by the web server user.
 
