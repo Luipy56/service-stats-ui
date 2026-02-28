@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server stats · ldeluipy</title>
+  <link rel="stylesheet" href="assets/style.css?v=1.0.0">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Server stats</h1>
+      <p class="subtitle">Services &amp; system</p>
+    </header>
+
+    <section class="system-card" aria-label="System info">
+      <h2>System</h2>
+      <div id="system-content">
+        <div class="loading-placeholder-wrap">
+          <div class="loading-placeholder" role="status" aria-live="polite">
+            <div class="loading-placeholder-spinner" aria-hidden="true"></div>
+            <span>Loading<span class="loading-placeholder-dots"><span>.</span><span>.</span><span>.</span></span></span>
+          </div>
+        </div>
+      </div>
+      <p class="meta">Updates every 60s while this page is open.</p>
+    </section>
+
+    <section class="services-section" aria-label="Services">
+      <h2>Services</h2>
+      <div id="services-toolbar">
+        <input type="search" id="services-search" class="search-input" placeholder="Search services…" aria-label="Search services">
+        <button type="button" id="btn-refresh" class="btn btn-secondary">Refresh list</button>
+        <span id="services-count" class="muted"></span>
+      </div>
+      <div id="services-list">
+        <div class="loading-placeholder-wrap">
+          <div class="loading-placeholder" role="status" aria-live="polite">
+            <div class="loading-placeholder-spinner" aria-hidden="true"></div>
+            <span>Loading<span class="loading-placeholder-dots"><span>.</span><span>.</span><span>.</span></span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+    <footer class="app-footer">
+      <span id="app-version" class="version-label">—</span>
+      <a href="https://ldeluipy.es" class="watermark" rel="noopener noreferrer" target="_blank">ldeluipy</a>
+    </footer>
+  </div>
+  <script src="assets/app.js?v=1.0.0"></script>
+</body>
+</html>
